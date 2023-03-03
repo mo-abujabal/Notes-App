@@ -6,8 +6,10 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     Key? key,
     required this.onTap,
+    this.isLoading = false,
   }) : super(key: key);
-final Function() onTap;
+  final Function() onTap;
+  final bool isLoading;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -21,15 +23,24 @@ final Function() onTap;
             color: kPrimareColor,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: const Center(
-            child: Text(
-              'Add',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
+          child: Center(
+            child: isLoading
+                ? SizedBox(
+                    height: 24,
+                    width: 24,
+                    child: const CircularProgressIndicator(
+                      color: Colors.black,
+                      strokeWidth: 3.5,
+                    ),
+                  )
+                : const Text(
+                    'Add',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
           ),
         ),
       ),
