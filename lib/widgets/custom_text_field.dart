@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,11 +12,11 @@ class CustomTextField extends StatelessWidget {
   });
   final String hintText;
   final int maxLines;
-  final  Function(String?)? onSaved;
+  final Function(String?)? onSaved;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.only(right: 10, left: 10),
       child: TextFormField(
         onSaved: onSaved,
         validator: (value) {

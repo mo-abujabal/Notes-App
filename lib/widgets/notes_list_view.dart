@@ -1,4 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
+import 'package:notes_app/models/note_model.dart';
 
 import 'costum_icon_note.dart';
 
@@ -7,18 +10,26 @@ class NotesListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: ListView.builder(
-          padding: EdgeInsets.zero,
-          itemBuilder: (context, index) {
-            return const Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: 3,
-              ),
-              child: NoteItem(),
-            );
-          }),
+    return BlocBuilder<NotesCubit, NotesState>(
+      builder: (context, state) {
+        List<NoteModel> notes = BlocProvider.of<NotesCubit>(context).notes?? [];
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: ListView.builder(
+            itemCount: notes.length,
+              padding: EdgeInsets.zero,
+              itemBuilder: (context, index) {
+                return  Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 3,
+                  ),
+                  child: NoteItem(
+                    note: notes[index],
+                  ),
+                );
+              }),
+        );
+      },
     );
   }
 }

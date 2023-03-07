@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:notes_app/cubits/add%20cubit/cubit/add_note_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 
@@ -27,21 +28,27 @@ class _AddNoteFormState extends State<AddNoteForm> {
       autovalidateMode: autovalidateMode,
       child: Column(
         children: [
+          SizedBox(
+            height: 10,
+          ),
           CustomTextField(
             onSaved: (value) {
               title = value;
             },
             hintText: 'title',
           ),
+          SizedBox(
+            height: 16,
+          ),
           CustomTextField(
             onSaved: (value) {
               subTitle = value;
             },
             hintText: 'content . . . . .',
-            maxLines: 5,
+            maxLines: 7,
           ),
           const SizedBox(
-            height: 25,
+            height: 30,
           ),
           BlocBuilder<AddNoteCubit, AddNoteState>(
             builder: (context, state) {
@@ -53,7 +60,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
                     var noteModel = NoteModel(
                         title: title!,
                         subTitle: subTitle!,
-                        date: DateTime.now().toString(),
+                        date: DateFormat('yyyy-MM-dd').format(DateTime.now()),
                         color: Colors.blue.value);
                     BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
                   } else {
@@ -62,9 +69,6 @@ class _AddNoteFormState extends State<AddNoteForm> {
                 },
               );
             },
-          ),
-          const SizedBox(
-            height: 10,
           ),
         ],
       ),
